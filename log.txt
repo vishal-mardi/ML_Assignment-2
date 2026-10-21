@@ -1,0 +1,136 @@
+seed = 26012 | train/val/test sizes = 240 80 80
+
+===== Q1(a) single tree grid =====
+depth 2 min_leaf 1 | train 0.075 val 0.075 test 0.075 | leaves 3 samples/leaf 80.00 single-example leaves 0.00
+depth 2 min_leaf 2 | train 0.075 val 0.075 test 0.075 | leaves 3 samples/leaf 80.00 single-example leaves 0.00
+depth 2 min_leaf 4 | train 0.075 val 0.075 test 0.075 | leaves 3 samples/leaf 80.00 single-example leaves 0.00
+depth 4 min_leaf 1 | train 0.125 val 0.100 test 0.100 | leaves 5 samples/leaf 48.00 single-example leaves 0.00
+depth 4 min_leaf 2 | train 0.125 val 0.100 test 0.100 | leaves 5 samples/leaf 48.00 single-example leaves 0.00
+depth 4 min_leaf 4 | train 0.125 val 0.100 test 0.100 | leaves 5 samples/leaf 48.00 single-example leaves 0.00
+depth 8 min_leaf 1 | train 0.225 val 0.188 test 0.200 | leaves 9 samples/leaf 26.67 single-example leaves 0.00
+depth 8 min_leaf 2 | train 0.225 val 0.188 test 0.200 | leaves 9 samples/leaf 26.67 single-example leaves 0.00
+depth 8 min_leaf 4 | train 0.225 val 0.188 test 0.200 | leaves 9 samples/leaf 26.67 single-example leaves 0.00
+depth 16 min_leaf 1 | train 0.450 val 0.338 test 0.350 | leaves 18 samples/leaf 13.33 single-example leaves 0.00
+depth 16 min_leaf 2 | train 0.450 val 0.338 test 0.350 | leaves 18 samples/leaf 13.33 single-example leaves 0.00
+depth 16 min_leaf 4 | train 0.450 val 0.338 test 0.350 | leaves 18 samples/leaf 13.33 single-example leaves 0.00
+depth None min_leaf 1 | train 1.000 val 0.537 test 0.613 | leaves 45 samples/leaf 5.33 single-example leaves 0.11
+depth None min_leaf 2 | train 0.979 val 0.550 test 0.600 | leaves 45 samples/leaf 5.33 single-example leaves 0.00
+depth None min_leaf 4 | train 0.963 val 0.512 test 0.662 | leaves 40 samples/leaf 6.00 single-example leaves 0.00
+SELECTED single tree: max_depth = None , min_samples_leaf = 2 , val acc = 0.550
+
+===== Q1(b),(c) bagging =====
+theoretical expected distinct examples per bootstrap sample = 151.89
+B=  1 | train 0.700 val 0.350 test 0.525 | distinct 149.0 | OOB 0.297 (covers 0.38 of train) | disagreement nan | margin 1.000
+B=  5 | train 0.933 val 0.512 test 0.637 | distinct 151.2 | OOB 0.303 (covers 0.87 of train) | disagreement 0.796 | margin 0.250
+B= 10 | train 0.992 val 0.613 test 0.800 | distinct 153.2 | OOB 0.391 (covers 0.99 of train) | disagreement 0.788 | margin 0.258
+B= 25 | train 1.000 val 0.787 test 0.812 | distinct 151.5 | OOB 0.575 (covers 1.00 of train) | disagreement 0.794 | margin 0.261
+B= 50 | train 1.000 val 0.812 test 0.838 | distinct 152.3 | OOB 0.683 (covers 1.00 of train) | disagreement 0.792 | margin 0.265
+B=100 | train 1.000 val 0.825 test 0.838 | distinct 152.4 | OOB 0.725 (covers 1.00 of train) | disagreement 0.795 | margin 0.266
+B=200 | train 1.000 val 0.825 test 0.850 | distinct 152.3 | OOB 0.792 (covers 1.00 of train) | disagreement 0.792 | margin 0.265
+SELECTED B_final = 100
+
+===== Q1(d) tree vs bagging =====
+clean : tree acc 0.600 conf 0.994 | bagging acc 0.838 conf 0.428
+masked: tree acc 0.362 conf 0.994 | bagging acc 0.738 conf 0.292
+bagging corrects tree | test face 2 | true 1 | tree predicted 20 | bagging predicted 1 | top votes (class:votes): [(1, 48), (14, 8), (15, 7), (33, 7), (12, 5)] | votes for true class: 48
+bagging corrects tree | test face 5 | true 2 | tree predicted 1 | bagging predicted 2 | top votes (class:votes): [(2, 12), (20, 11), (28, 8), (1, 7), (4, 7)] | votes for true class: 12
+both wrong | test face 1 | true 0 | tree predicted 3 | bagging predicted 26 | top votes (class:votes): [(26, 22), (15, 20), (0, 19), (10, 7), (17, 7)] | votes for true class: 19
+both wrong | test face 7 | true 3 | tree predicted 15 | bagging predicted 4 | top votes (class:votes): [(4, 18), (3, 10), (1, 6), (12, 5), (30, 5)] | votes for true class: 10
+
+===== Q2(a) toy SAMME example (K=3, 9 samples) =====
+initial weights    : [0.1111 0.1111 0.1111 0.1111 0.1111 0.1111 0.1111 0.1111 0.1111]
+true labels        : [0 0 0 1 1 1 2 2 2]
+weak learner preds : [0 0 0 0 2 2 2 2 2]
+weighted error     : 0.3333   (random guessing level for K=3 is 0.6667)
+alpha              : 1.3863
+updated weights    : [0.0556 0.0556 0.0556 0.2222 0.2222 0.2222 0.0556 0.0556 0.0556]
+
+===== Q2(b) boosting grid =====
+depth 1 rounds 10 | train 0.050 val 0.037
+depth 1 rounds 25 | train 0.050 val 0.050
+depth 1 rounds 50 | train 0.096 val 0.075
+depth 1 rounds 100 | train 0.204 val 0.163
+depth 2 rounds 10 | train 0.129 val 0.062
+depth 2 rounds 25 | train 0.163 val 0.113
+depth 2 rounds 50 | train 0.321 val 0.150
+depth 2 rounds 100 | train 0.312 val 0.100
+depth 3 rounds 10 | train 0.217 val 0.100
+depth 3 rounds 25 | train 0.325 val 0.163
+depth 3 rounds 50 | train 0.633 val 0.312
+depth 3 rounds 100 | train 0.779 val 0.400
+depth 4 rounds 10 | train 0.229 val 0.150
+depth 4 rounds 25 | train 0.483 val 0.150
+depth 4 rounds 50 | train 0.971 val 0.400
+depth 4 rounds 100 | train 1.000 val 0.425
+SELECTED boosting: depth = 4 , rounds = 100 , val acc = 0.425
+
+===== Q2(c) bagging vs boosting =====
+L= 25 | bagging train/val/test = 1.000/0.800/0.875 time 29.5s | boosting train/val/test = 0.483/0.150/0.138 time 8.9s (rounds used 25)
+L= 50 | bagging train/val/test = 1.000/0.812/0.900 time 59.9s | boosting train/val/test = 0.971/0.400/0.412 time 17.5s (rounds used 50)
+L=100 | bagging train/val/test = 1.000/0.825/0.887 time 119.7s | boosting train/val/test = 1.000/0.425/0.463 time 35.2s (rounds used 100)
+heaviest training face: index 32 | true class 5 | max weight 0.0823 (equal weight would be 0.0042)
+  learners that predicted it correctly: 13 out of 100 | final ensemble prediction: 5
+
+===== Q2(d) clean vs masked =====
+tree      clean: acc 0.600 conf 0.994 | masked: acc 0.362 conf 0.994
+bagging   clean: acc 0.863 conf 0.416 | masked: acc 0.775 conf 0.300
+boosting  clean: acc 0.463 conf 0.118 | masked: acc 0.300 conf 0.122
+fraction of split nodes using masked pixels: tree 0.068 | bagging 0.058 | boosting 0.088
+face 0 (true class 0) | bagging true-class vote fraction clean 0.35 -> masked 0.25 (predicts 0 on masked)
+   boosting true-class q clean 0.08 -> masked 0.07 (predicts 12 on masked)
+   pairwise disagreement of the bagged trees on the masked face: 0.877
+   average boosting weight of this person's 6 training faces: 0.0233 total (equal weight would be 0.0250)
+
+===== Q3 bias and variance (this part is slow) =====
+depths used in Q3(b): [2, 8, None]
+repeat 1 of 30 done in 314 s
+repeat 2 of 30 done in 314 s
+repeat 3 of 30 done in 313 s
+repeat 4 of 30 done in 315 s
+repeat 5 of 30 done in 310 s
+repeat 6 of 30 done in 312 s
+repeat 7 of 30 done in 307 s
+repeat 8 of 30 done in 283 s
+repeat 9 of 30 done in 277 s
+repeat 10 of 30 done in 280 s
+repeat 11 of 30 done in 279 s
+repeat 12 of 30 done in 278 s
+repeat 13 of 30 done in 285 s
+repeat 14 of 30 done in 282 s
+repeat 15 of 30 done in 316 s
+repeat 16 of 30 done in 314 s
+repeat 17 of 30 done in 312 s
+repeat 18 of 30 done in 311 s
+repeat 19 of 30 done in 310 s
+repeat 20 of 30 done in 277 s
+repeat 21 of 30 done in 281 s
+repeat 22 of 30 done in 278 s
+repeat 23 of 30 done in 281 s
+repeat 24 of 30 done in 275 s
+repeat 25 of 30 done in 282 s
+repeat 26 of 30 done in 279 s
+repeat 27 of 30 done in 281 s
+repeat 28 of 30 done in 277 s
+repeat 29 of 30 done in 283 s
+repeat 30 of 30 done in 276 s
+
+----- Q3(a) -----
+single tree  bias^2 0.3551  variance 0.6291 | test acc over 30 refits: mean 0.508 std 0.061
+bagging      bias^2 0.4770  variance 0.0268 | test acc over 30 refits: mean 0.781 std 0.038
+boosting     bias^2 0.8722  variance 0.0180 | test acc over 30 refits: mean 0.366 std 0.077
+
+----- Q3(b) -----
+depth 2 | tree: bias^2 1.8017 var 0.0674 acc 0.065 | bagging(100): bias^2 0.9274 var 0.0118 acc 0.144
+    variance removed by bagging: 0.0556 (82.5%) | accuracy gain 0.078 | samples per leaf: tree 79.33, bagged trees 76.79 | tree disagreement 0.960
+depth 8 | tree: bias^2 1.4211 var 0.2497 acc 0.165 | bagging(100): bias^2 0.7937 var 0.0162 acc 0.500
+    variance removed by bagging: 0.2336 (93.5%) | accuracy gain 0.336 | samples per leaf: tree 25.19, bagged trees 22.52 | tree disagreement 0.925
+depth None | tree: bias^2 0.3551 var 0.6291 acc 0.508 | bagging(100): bias^2 0.4782 var 0.0265 acc 0.778
+    variance removed by bagging: 0.6026 (95.8%) | accuracy gain 0.270 | samples per leaf: tree 6.00, bagged trees 5.40 | tree disagreement 0.803
+
+----- Q3(d) final table -----
+model           clean acc   masked acc     bias^2   variance
+single tree         0.600        0.362     0.3551     0.6291
+bagging             0.863        0.775     0.4770     0.0268
+boosting            0.463        0.300     0.8722     0.0180
+
+All done. Results are in the folder: outputs
